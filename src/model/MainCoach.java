@@ -1,6 +1,6 @@
 package model;
 
-public class MainCoach extends Plant{
+public class MainCoach extends Plant implements CalculatePriceNLevel{
 	private int experienceYears;
 	private int quantityTeams;
 	private int championshipsWon;
@@ -41,6 +41,24 @@ public class MainCoach extends Plant{
 	public int getChampionshipsWon(){
 		return championshipsWon;
 		
+	}
+	
+	@Override
+	public double calculatePrice(){
+		double price=0;
+		
+		price=(getSalary()*10)+((double)getExperienceYears()*100)+((double)getChampionshipsWon()*50);
+		
+		return price;
+	}
+	
+	@Override
+	public double calculateLevel(){
+		double level=0;
+
+		level=5+((double)getChampionshipsWon()/10);
+		
+		return level;
 	}
 	
 	@Override

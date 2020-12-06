@@ -1,8 +1,8 @@
 package model;
 
-public class Players extends Plant{
+public class Players extends Plant implements CalculatePriceNLevel{
 	private int shirtNum;
-	private int goals;
+	private double goals;
 	private double qualification;
 	private String playerExperticies;
 	private String playerPosition;
@@ -32,11 +32,11 @@ public class Players extends Plant{
 				break;
 				
 			case 3:
-				this.playerPosition=Position.Delantero.toString();
+				this.playerPosition=Position.Volante.toString();
 				break;
 				
 			case 4:
-				this.playerPosition=Position.Volante.toString();
+				this.playerPosition=Position.Delantero.toString();
 				break;
 				
 		}
@@ -88,7 +88,7 @@ public class Players extends Plant{
 		
 	}
 	
-	public int getGoals(){
+	public double getGoals(){
 		return goals;
 		
 	}
@@ -101,6 +101,59 @@ public class Players extends Plant{
 	public double getQualification(){
 		return qualification;
 		
+	}
+	
+	@Override
+	public double calculatePrice(){
+		double price=0;
+		
+		if(getPosition().equalsIgnoreCase("Portero")){
+			price=(getSalary()*12)+(getQualification()*150);
+			
+		}
+		
+		else if(getPosition().equalsIgnoreCase("Defensor")){
+			price=(getSalary()*13)+(getQualification()*125)+((double)getGoals()*100);
+			
+		}
+		
+		else if(getPosition().equalsIgnoreCase("Volante")){
+			price=(getSalary()*14)+(getQualification()*135)+((double)getGoals()*125);
+			
+		}
+		
+		else if(getPosition().equalsIgnoreCase("Delantero")){
+			price=(getSalary()*15)+(getQualification()*145)+((double)getGoals()*150);
+			
+		}
+		
+		return price;
+	}
+	
+	public double calculateLevel(){
+		double level=0;
+		
+		if(getPosition().equalsIgnoreCase("Portero")){
+			level=(getQualification()*0.9);
+			
+		}
+		
+		else if(getPosition().equalsIgnoreCase("Defensor")){
+			level=(getQualification()*0.9)+((double)getGoals()/100);
+			
+		}
+		
+		else if(getPosition().equalsIgnoreCase("Volante")){
+			level=(getQualification()*0.9)+((double)getGoals()/90);
+			
+		}
+		
+		else if(getPosition().equalsIgnoreCase("Delantero")){
+			level=(getQualification()*0.9)+((double)getGoals()/80);
+			
+		}
+		
+		return level;
 	}
 	
 	@Override

@@ -49,16 +49,10 @@ public class Plant{
 		
 	}
 	
-	public boolean getStatus(){
-		return status;
-		
-	}
-	
-	public String showContents(){
-		String info="";
+	public String getStatus(){
 		String statusAux="";
-		
-		if(!getStatus()){
+
+		if(!status){
 			statusAux="Inactivo";
 			
 		}
@@ -68,9 +62,15 @@ public class Plant{
 			
 		}
 		
+		return statusAux;
+	}
+	
+	public String showContents(){
+		String info="";
+		
 		info="\n-------------------------------------------------------\n** Nombre: " + getName() + 
 		"\n** Salario: " + getSalary() + "\n** ID: " + getId() + "\n** Estatus: " 
-		+ statusAux;
+		+ getStatus();
 		
 		return info;		
 	}

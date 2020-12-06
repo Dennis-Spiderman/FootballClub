@@ -1,14 +1,26 @@
 package model;
 
 public class Alignment{
+	private String name;
 	private String date;
 	private String tactic;
-	private int formation;
+	private String[] formation=new String[7];
 	
-	public Alignment(String date, String tactic, int formation){
+	public Alignment(String name, String date, String tactic, String[] formation){
+		this.name=name;
 		this.date=date;
 		this.tactic=tactic;
 		this.formation=formation;
+		
+	}
+	
+	public void setName(String name){
+		this.name=name;
+		
+	}
+	
+	public String getName(){
+		return name;
 		
 	}
 	
@@ -32,13 +44,25 @@ public class Alignment{
 		
 	}
 	
-	public void setFormation(int formation){
+	public void setFormation(String[] formation){
 		this.formation=formation;
 		
 	}
 	
-	public int getFormation(){
+	public String[] getFormation(){
 		return formation;
 		
+	}
+	
+	public String getFormationString(){
+		String formationAux="";
+		
+		for(int i=0; i<formation.length; i++){
+			formationAux+=formation[i];
+			formationAux+="\n";
+			
+		}
+		
+		return formationAux;
 	}
 }

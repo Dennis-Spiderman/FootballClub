@@ -7,6 +7,7 @@ public class Menu{
 	static final Scanner sc2=new Scanner(System.in);
 	
 	public static void main(String[] args){
+		
 		System.out.println("-------------------------------------------------------\n¡Hola!");
 		
 		System.out.println("\nEscribe el nombre del club:");
@@ -25,18 +26,23 @@ public class Menu{
 	}
 	
 	public static void menu(Club fc1){
+		fc1.addAlignment();
 		int selection=0;
 		
 		System.out.println("\n-------------------------------------------------------");
 		
-		System.out.println("\n¿Qué quieres hacer?");
+		System.out.println("\n¿Que quieres hacer?");
 		System.out.println("1. Agregar equipo\n2. Agregar equipo\n3. Ver los equipos del club");
 		System.out.println("4. Contratar entrenador principal\n5. Ver los entrenadores principales del club");
 		System.out.println("6. Contratar entrenador asistente\n7. Ver los entrenadores asistentes del club");
 		System.out.println("8. Contratar jugador\n9. Ver los jugadores del club\n10. Ver los camerinos");
 		System.out.println("11. Ver las oficinas\n12. Ver toda la información del club");
-		System.out.println("13. Agregar entrenador principal a team\n14. Agregar entrenador asistente a team");
-		System.out.println("15. Agregar jugador a team\n16. Calcular precio en el mercado de un jugador");
+		System.out.println("13. Agregar entrenador principal a equipo\n14. Agregar entrenador asistente a equipo");
+		System.out.println("15. Agregar jugador a equipo\n16. Calcular precio en el mercado de un jugador");
+		System.out.println("17. Calcular precio en el mercado de un entrenador principal");
+		System.out.println("18. Calcular nivel de un jugador\n19. Calcular nivel de un entrenador");
+		System.out.println("20. Despedir entrenador principal\n21. Despedir entrenador asistente\n22. Despedir juagador");
+		System.out.println("23. Agregar alineacion a equipo\n24. Calificar juagdor\n25. Cambiar informacion de empleado");
 		
 		selection=sc2.nextInt();
 		
@@ -107,6 +113,34 @@ public class Menu{
 				menuCalculateMarketPricePlayer(fc1);
 				break;
 			
+			case 17:
+				menuCalculateMarketPriceMainCoach(fc1);
+				break;
+			
+			case 18:
+				menuCalculateLevelPlayer(fc1);
+				break;
+				
+			case 19:
+				menuCalculateLevelCoach(fc1);
+				break;
+				
+			case 20:
+				menuOrderOffMainCoach(fc1);
+				break;
+				
+			case 21:
+				menuOrderOffAssistantCoach(fc1);
+				break;
+				
+			case 22:
+				menuOrderOffPlayer(fc1);
+				break;
+				
+			case 23:
+				menuAddAlignment(fc1);
+				break;
+				
 		}
 	}
 	
@@ -192,7 +226,21 @@ public class Menu{
 	}
 	
 	public static void addPlayerTeam(Club fc1){
+		System.out.println("\nLos jugadores que puedes agregar son:");
+		System.out.println(fc1.getInfoPlayers());
 		
+		System.out.println("\nEscribe el nombre del jugador a agregar:");
+		String playerName=sc1.nextLine();
+		
+		System.out.println("\nLos equipos disponibles a los que puedes agregar el jugador son:");
+		System.out.println(fc1.getInfoTeams());
+		
+		System.out.println("\nEscribe el nombre del equipo al que vas a agregar el jugador:");
+		String teamName=sc1.nextLine();
+		
+		fc1.addPlayerTeam(playerName,teamName);
+		
+		menu(fc1);
 	}
 	
 	public static void menuSeeTheTeams(Club fc1){
@@ -203,6 +251,7 @@ public class Menu{
 	
 	public static void menuAddMainCoach(Club fc1){
 		boolean status=true;
+		int quantityTeams=0;
 		
 		System.out.println("\n-------------------------------------------------------");
 		
@@ -217,9 +266,6 @@ public class Menu{
 		
 		System.out.println("\nEscribe los anios de experiencia del entrenador a contratar:");
 		int experiencieYears=sc2.nextInt();
-		
-		System.out.println("\nEscribe la cantidad de teams bajo el cargo del entrenador a contratar:");
-		int quantityTeams=sc2.nextInt();
 		
 		System.out.println("\nEscribe la cantidad de campeonatos ganados por el entrenador a contratar:");
 		int championshipsWon=sc2.nextInt();
@@ -285,8 +331,14 @@ public class Menu{
 		System.out.println("\nEscribe el numero de goles del jugador a contratar:");
 		int goals=sc2.nextInt();
 		
-		System.out.println("\nEscribe la califiación del jugador a contratar:");
+		System.out.println("\nEscribe la califiacion, 1-5, del jugador a contratar:");
 		double mark=sc2.nextDouble();
+		
+		while(mark<1 || mark>5){
+			System.out.println("Tu seleccion no es valida.");
+			
+			menuAddPlayer(fc1);
+		}
 		
 		System.out.println("\nEscribe la posicion del jugador a contratar:");
 		System.out.println("1. Portero\n2. Defensor\n3. Volante\n4. Delantero");
@@ -308,15 +360,21 @@ public class Menu{
 	}
 	
 	public static void seeTheCamerines(Club fc1){
-	
+		System.out.println("No me dio el tiempo:(");
+		
+		menu(fc1);
 	}
 	
 	public static void seeTheOffices(Club fc1){
-	
+		System.out.println("No me dio el tiempo:(");
+		
+		menu(fc1);
 	}
 	
 	public static void seeAllInfo(Club fc1){
-	
+		System.out.println(fc1.getAllInfo());
+		
+		menu(fc1);
 	}
 	
 	public static void menuCalculateMarketPricePlayer(Club fc1){
@@ -328,6 +386,99 @@ public class Menu{
 		
 		System.out.println("\nEl precio en el mercado del jugador " + playerName + " es:");
 		System.out.println(fc1.calculateMarketPricePlayer(playerName));
+		
+		menu(fc1);
+	}
+	
+	public static void menuCalculateMarketPriceMainCoach(Club fc1){
+		System.out.println("\nLos entrenadores de los que puedes calcular el precio en el mercado son:");
+		System.out.println(fc1.getInfoMainCoach());
+		
+		System.out.println("\nEscribe el nombre del entrenador del que quieres calcular el precio en el mercado:");
+		String coachName=sc1.nextLine();
+		
+		System.out.println("\nEl precio en el mercado del entrenador " + coachName + " es:");
+		System.out.println(fc1.calculateMarketPriceCoach(coachName));
+		
+		menu(fc1);
+	}
+	
+	public static void menuCalculateLevelPlayer(Club fc1){
+		System.out.println("\nLos jugadores de los que puedes calcular el nivel son:");
+		System.out.println(fc1.getInfoPlayers());
+		
+		System.out.println("\nEscribe el nombre del jugador del que quieres calcular nivel:");
+		String playerName=sc1.nextLine();
+		
+		System.out.println("\nEl nivel del jugador " + playerName + " es:");
+		System.out.println(fc1.calculateLevelPlayer(playerName));
+		
+		menu(fc1);
+	}
+	
+	public static void menuCalculateLevelCoach(Club fc1){
+		System.out.println("\nLos entrenadores de los que puedes calcular el nivel son:");
+		System.out.println(fc1.getInfoMainCoach());
+		
+		System.out.println("\nEscribe el nombre del entrenador del que quieres calcular nivel:");
+		String coachName=sc1.nextLine();
+		
+		System.out.println("\nEl nivel del entrenador " + coachName + " es:");
+		System.out.println(fc1.calculateLevelCoach(coachName));
+		
+		menu(fc1);
+	}
+	
+	public static void menuOrderOffMainCoach(Club fc1){
+		System.out.println("\nLos entrenadores que puedes despedir son:");
+		System.out.println(fc1.getInfoMainCoach());
+		
+		System.out.println("\nEscribe el nombre del entrenador que quieres despedir:");
+		String coachName=sc1.nextLine();
+		
+		fc1.orederOffMainCoach(coachName);
+		
+		menu(fc1);
+	}
+	
+	public static void menuOrderOffAssistantCoach(Club fc1){
+		System.out.println("\nLos entrenadores que puedes despedir son:");
+		System.out.println(fc1.getInfoAssistantCoach());
+		
+		System.out.println("\nEscribe el nombre del entrenador que quieres despedir:");
+		String coachName=sc1.nextLine();
+		
+		fc1.orederOffAssistantCoach(coachName);
+		
+		menu(fc1);
+	}
+	
+	public static void menuOrderOffPlayer(Club fc1){
+		System.out.println("\nLos jugadores que puedes despedir son:");
+		System.out.println(fc1.getInfoPlayers());
+		
+		System.out.println("\nEscribe el nombre del jugador que quieres despedir:");
+		String playerName=sc1.nextLine();
+		
+		fc1.orederOffPlayer(playerName);
+		
+		menu(fc1);
+	}
+	
+	public static void menuAddAlignment(Club fc1){
+		System.out.println("\nLos equipos a los que puedes agregar una alineacion son:");
+		System.out.println(fc1.getInfoTeams());
+		
+		System.out.println("\nEscribe  le nombre del equipo al que vas a agregar la alineacion:");
+		String teamName=sc1.nextLine();
+		
+		System.out.println("\nLas alineaciones que puedes agregar son:");
+		System.out.println(fc1.getAlignment());
+		
+		System.out.println("\nEscribe el nombre de la alineacion a agregar:");
+		String alignmentName=sc1.nextLine();
+		
+		fc1.addAlignmentTeam(teamName,alignmentName);
 		
 		menu(fc1);
 	}

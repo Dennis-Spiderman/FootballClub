@@ -6,6 +6,7 @@ public class Team{
 	private String[] mainCoach=new String[1];
 	private String[] assistantCoachs=new String[3];
 	private String[] players=new String[25];
+	private String[] alignment=new String[3];
 	
 	public Team(String name){
 		this.name=name;
@@ -129,12 +130,38 @@ public class Team{
 		return playersAux;
 	}
 	
+	public void addAlignment(String alignmentName){
+		for(int i=0; i<alignment.length; i++){
+			if(alignment[i]==null){
+				alignment[i]=alignmentName;
+				
+				i=alignment.length;
+			}
+		}
+	}
+	
+	public String getAlignmentString(){
+		String alignmentAux="";
+		
+		for(int i=0; i<alignment.length; i++){
+			if(alignment[i]!=null){
+				alignmentAux+=alignment[i];
+				
+				i=alignment.length;
+				
+			}
+		}
+		
+		return alignmentAux;
+	}
+	
 	public String showContents(){
 		String info="";
 		
 		info+="\n-------------------------------------------------------\n\n** Nombre: " + getName() +
 		"\n** Entrenador principal: " + getMainCoachString() + "\n** Entrenadores asistentes: " + 
-		getAssistantCoachsString() + "\n** Jugadores:" + getPlayersString() + "\n\n-------------------------------------------------------";
+		getAssistantCoachsString() + "\n** Jugadores: " + getPlayersString() + "\n** Alineaciones: " + 
+		getAlignmentString() + "\n\n-------------------------------------------------------";
 		
 		return info;
 	}
